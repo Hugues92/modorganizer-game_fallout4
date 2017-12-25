@@ -41,7 +41,7 @@ bool GameFallout4::init(IOrganizer *moInfo)
   }
 
   registerFeature<ScriptExtender>(new Fallout4ScriptExtender(this));
-  registerFeature<DataArchives>(new Fallout4DataArchives());
+  registerFeature<DataArchives>(new Fallout4DataArchives(myGamesPath()));
   registerFeature<LocalSavegames>(new GamebryoLocalSavegames(myGamesPath(), "Fallout4.ini"));
   registerFeature<SaveGameInfo>(new Fallout4SaveGameInfo(this));
   registerFeature<GamePlugins>(new Fallout4GamePlugins(moInfo));
@@ -62,7 +62,7 @@ QList<ExecutableInfo> GameFallout4::executables() const
       << ExecutableInfo("Fallout 4", findInGameFolder(binaryName()))
       << ExecutableInfo("Fallout Launcher", findInGameFolder(getLauncherName()))
       << ExecutableInfo("Creation Kit", findInGameFolder("CreationKit.exe"))
-      << ExecutableInfo("LOOT", getLootPath())
+      << ExecutableInfo("LOOT", getLootPath()).withArgument("--game=\"Fallout4\"")
          ;
 }
 
@@ -134,7 +134,7 @@ QString GameFallout4::steamAPPId() const
 
 QStringList GameFallout4::primaryPlugins() const {
   QStringList plugins = {"fallout4.esm", "dlcrobot.esm", "dlcworkshop01.esm", "dlccoast.esm", "dlcworkshop02.esm",
-          "dlcworkshop03.esm", "dlcnukaworld.esm", "dlcultrahighresolution.esm"};
+          "dlcworkshop03.esm", "dlcnukaworld.esm"};
 
   plugins.append(CCPlugins());
 
